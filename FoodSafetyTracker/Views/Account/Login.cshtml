@@ -1,0 +1,38 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Log in";
+    var returnUrl = ViewData["ReturnUrl"] as string ?? "/";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <h2>@ViewData["Title"]</h2>
+        <section>
+            <form asp-action="Login" asp-controller="Account" method="post" asp-route-returnUrl="@returnUrl">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-floating mb-2">
+                    <input asp-for="Email" class="form-control" autocomplete="username" />
+                    <label asp-for="Email"></label>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-2">
+                    <input asp-for="Password" class="form-control" autocomplete="current-password" />
+                    <label asp-for="Password"></label>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-check mb-2">
+                    <input asp-for="RememberMe" class="form-check-input" />
+                    <label asp-for="RememberMe" class="form-check-label"></label>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Log in</button>
+            </form>
+        </section>
+        <p class="mt-2 text-muted small">
+            Seed users: admin@local / inspector@local / viewer@local — Password: Test@123
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

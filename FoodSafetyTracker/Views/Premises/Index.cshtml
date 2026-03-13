@@ -1,0 +1,46 @@
+@model IEnumerable<FoodSafetyTracker.Models.Premises>
+@{
+    ViewData["Title"] = "Premises";
+}
+
+<h1>Premises</h1>
+
+@if (User.IsInRole(FoodSafetyTracker.Data.DbInitializer.RoleAdmin))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Town</th>
+            <th>Risk</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Address</td>
+                <td>@item.Town</td>
+                <td>@item.RiskRating</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole(FoodSafetyTracker.Data.DbInitializer.RoleAdmin))
+                    {
+                        <text> | </text>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                        <text> | </text>
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

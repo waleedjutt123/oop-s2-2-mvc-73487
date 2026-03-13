@@ -1,4 +1,4 @@
-# Food Safety Inspection Tracker (Assignment 2)
+# Food Safety Inspection Tracker 
 
 ASP.NET Core MVC application for tracking food premises inspections and follow ups, focused on Serilog logging, error handling, and dashboard reporting.
 
@@ -24,6 +24,7 @@ cd FoodSafetyTracker
 dotnet ef migrations add InitialCreate
 dotnet ef database update
 dotnet run
+
 
 
 

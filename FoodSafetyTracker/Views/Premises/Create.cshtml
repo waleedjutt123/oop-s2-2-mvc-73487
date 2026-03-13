@@ -1,0 +1,33 @@
+@model FoodSafetyTracker.Models.Premises
+@{
+    ViewData["Title"] = "Create Premises";
+}
+
+<h1>Create Premises</h1>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="mb-2">
+        <label asp-for="Name" class="form-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="Address" class="form-label"></label>
+        <input asp-for="Address" class="form-control" />
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="Town" class="form-label"></label>
+        <input asp-for="Town" class="form-control" />
+        <span asp-validation-for="Town" class="text-danger"></span>
+    </div>
+    <div class="mb-2">
+        <label asp-for="RiskRating" class="form-label"></label>
+        <select asp-for="RiskRating" class="form-control" asp-items="Html.GetEnumSelectList<FoodSafetyTracker.Models.RiskRating>()"></select>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts { <partial name="_ValidationScriptsPartial" /> }

@@ -1,0 +1,45 @@
+@model IEnumerable<FoodSafetyTracker.Models.FollowUp>
+@{
+    ViewData["Title"] = "Follow-ups";
+}
+@using FoodSafetyTracker.Data
+
+<h1>Follow-ups</h1>
+
+@if (User.IsInRole(DbInitializer.RoleAdmin) || User.IsInRole(DbInitializer.RoleInspector))
+{
+    <p><a asp-action="Create">Create New</a></p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Inspection</th>
+            <th>Premises</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Closed Date</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>#@item.InspectionId</td>
+                <td>@(item.Inspection?.Premises?.Name ?? "-")</td>
+                <td>@item.DueDate.ToString("d")</td>
+                <td>@item.Status</td>
+                <td>@(item.ClosedDate?.ToString("d") ?? "-")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    @if (User.IsInRole(DbInitializer.RoleAdmin) || User.IsInRole(DbInitializer.RoleInspector))
+                    {
+                        <text> | </text>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
