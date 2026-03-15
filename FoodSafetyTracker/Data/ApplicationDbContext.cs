@@ -8,9 +8,7 @@ namespace FoodSafetyTracker.Data;
 public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+        : base(options) { }
 
     public DbSet<Premises> Premises => Set<Premises>();
     public DbSet<Inspection> Inspections => Set<Inspection>();
@@ -19,13 +17,11 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-
         builder.Entity<Premises>()
             .HasMany(p => p.Inspections)
             .WithOne(i => i.Premises!)
             .HasForeignKey(i => i.PremisesId)
             .OnDelete(DeleteBehavior.Cascade);
-
         builder.Entity<Inspection>()
             .HasMany(i => i.FollowUps)
             .WithOne(f => f.Inspection!)
@@ -33,4 +29,3 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
             .OnDelete(DeleteBehavior.Cascade);
     }
 }
-

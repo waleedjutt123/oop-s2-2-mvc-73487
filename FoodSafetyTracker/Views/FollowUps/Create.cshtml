@@ -2,13 +2,11 @@
 @{
     ViewData["Title"] = "Create Follow-up";
 }
-
 <h1>Create Follow-up</h1>
-
 <form asp-action="Create" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-2">
-        <label asp-for="InspectionId" class="form-label">Inspection</label>
+        <label class="form-label">Inspection</label>
         <select asp-for="InspectionId" class="form-control" asp-items="ViewBag.InspectionId"></select>
     </div>
     <div class="mb-2">
@@ -23,5 +21,4 @@
     <button type="submit" class="btn btn-primary">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
-
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

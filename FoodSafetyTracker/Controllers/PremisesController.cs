@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FoodSafetyTracker.Controllers;
 
-[Authorize(Roles = DbInitializer.RoleAdmin + "," + DbInitializer.RoleInspector + "," + DbInitializer.RoleViewer)]
+[Authorize(Roles = "Admin,Inspector,Viewer")]
 public class PremisesController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -18,53 +18,51 @@ public class PremisesController : Controller
         _logger = logger;
     }
 
-    public async Task<IActionResult> Index(CancellationToken cancellationToken)
+    public async Task<IActionResult> Index(CancellationToken ct)
     {
-        var list = await _context.Premises.OrderBy(p => p.Town).ThenBy(p => p.Name).ToListAsync(cancellationToken);
+        var list = await _context.Premises.OrderBy(p => p.Town).ThenBy(p => p.Name).ToListAsync(ct);
         return View(list);
     }
 
-    [Authorize(Roles = DbInitializer.RoleAdmin + "," + DbInitializer.RoleInspector + "," + DbInitializer.RoleViewer)]
-    public async Task<IActionResult> Details(int? id, CancellationToken cancellationToken)
+    public async Task<IActionResult> Details(int? id, CancellationToken ct)
     {
         if (id == null) return NotFound();
-        var premises = await _context.Premises.Include(p => p.Inspections).FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
-        if (premises == null) return NotFound();
-        return View(premises);
+        var p = await _context.Premises.Include(x => x.Inspections).FirstOrDefaultAsync(m => m.Id == id, ct);
+        if (p == null) return NotFound();
+        return View(p);
     }
 
-    [Authorize(Roles = DbInitializer.RoleAdmin)]
-    [HttpGet]
+    [Authorize(Roles = "Admin")]
     public IActionResult Create() => View(new Premises());
 
-    [Authorize(Roles = DbInitializer.RoleAdmin)]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Create(Premises premises, CancellationToken cancellationToken)
+    public async Task<IActionResult> Create(Premises premises, CancellationToken ct)
     {
         if (ModelState.IsValid)
         {
             _context.Add(premises);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.SaveChangesAsync(ct);
             _logger.LogInformation("Premises created. PremisesId: {PremisesId}, Name: {Name}", premises.Id, premises.Name);
             return RedirectToAction(nameof(Index));
         }
         return View(premises);
     }
 
-    [Authorize(Roles = DbInitializer.RoleAdmin)]
-    public async Task<IActionResult> Edit(int? id, CancellationToken cancellationToken)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Edit(int? id, CancellationToken ct)
     {
         if (id == null) return NotFound();
-        var premises = await _context.Premises.FindAsync([id], cancellationToken);
-        if (premises == null) return NotFound();
-        return View(premises);
+        var p = await _context.Premises.FindAsync([id], ct);
+        if (p == null) return NotFound();
+        return View(p);
     }
 
-    [Authorize(Roles = DbInitializer.RoleAdmin)]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> Edit(int id, Premises premises, CancellationToken cancellationToken)
+    public async Task<IActionResult> Edit(int id, Premises premises, CancellationToken ct)
     {
         if (id != premises.Id) return NotFound();
         if (ModelState.IsValid)
@@ -72,38 +70,38 @@ public class PremisesController : Controller
             try
             {
                 _context.Update(premises);
-                await _context.SaveChangesAsync(cancellationToken);
+                await _context.SaveChangesAsync(ct);
                 _logger.LogInformation("Premises updated. PremisesId: {PremisesId}, Name: {Name}", premises.Id, premises.Name);
                 return RedirectToAction(nameof(Index));
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await _context.Premises.AnyAsync(e => e.Id == premises.Id, cancellationToken)) return NotFound();
+                if (!await _context.Premises.AnyAsync(e => e.Id == premises.Id, ct)) return NotFound();
                 throw;
             }
         }
         return View(premises);
     }
 
-    [Authorize(Roles = DbInitializer.RoleAdmin)]
-    public async Task<IActionResult> Delete(int? id, CancellationToken cancellationToken)
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Delete(int? id, CancellationToken ct)
     {
         if (id == null) return NotFound();
-        var premises = await _context.Premises.FirstOrDefaultAsync(m => m.Id == id, cancellationToken);
-        if (premises == null) return NotFound();
-        return View(premises);
+        var p = await _context.Premises.FirstOrDefaultAsync(m => m.Id == id, ct);
+        if (p == null) return NotFound();
+        return View(p);
     }
 
-    [Authorize(Roles = DbInitializer.RoleAdmin)]
+    [Authorize(Roles = "Admin")]
     [HttpPost, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public async Task<IActionResult> DeleteConfirmed(int id, CancellationToken cancellationToken)
+    public async Task<IActionResult> DeleteConfirmed(int id, CancellationToken ct)
     {
-        var premises = await _context.Premises.FindAsync([id], cancellationToken);
-        if (premises != null)
+        var p = await _context.Premises.FindAsync([id], ct);
+        if (p != null)
         {
-            _context.Premises.Remove(premises);
-            await _context.SaveChangesAsync(cancellationToken);
+            _context.Premises.Remove(p);
+            await _context.SaveChangesAsync(ct);
             _logger.LogInformation("Premises deleted. PremisesId: {PremisesId}", id);
         }
         return RedirectToAction(nameof(Index));

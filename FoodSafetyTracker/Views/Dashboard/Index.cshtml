@@ -1,0 +1,89 @@
+@model FoodSafetyTracker.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h1>Dashboard</h1>
+
+<form method="get" asp-action="Index" class="row g-3 mb-4">
+    <div class="col-auto">
+        <label class="form-label">Town</label>
+        <select name="town" class="form-select">
+            <option value="">— All —</option>
+            @foreach (var t in Model.Towns)
+            {
+                <option value="@t" selected="@(Model.SelectedTown == t)">@t</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto">
+        <label class="form-label">Risk rating</label>
+        <select name="riskRating" class="form-select">
+            <option value="">— All —</option>
+            @foreach (var r in Model.RiskRatings)
+            {
+                <option value="@((int)r)" selected="@(Model.SelectedRiskRating == r)">@r</option>
+            }
+        </select>
+    </div>
+    <div class="col-auto d-flex align-items-end">
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+</form>
+
+<div class="row mb-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Inspections this month</h5>
+                <p class="card-text display-6">@Model.InspectionsThisMonth</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Failed inspections this month</h5>
+                <p class="card-text display-6">@Model.FailedInspectionsThisMonth</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Overdue open follow-ups</h5>
+                <p class="card-text display-6">@Model.OverdueOpenFollowUps</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Premises</h5>
+                <p class="card-text">Manage food premises and risk ratings.</p>
+                <a asp-controller="Premises" asp-action="Index" class="btn btn-primary">View Premises</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Inspections</h5>
+                <p class="card-text">Record and view inspection outcomes.</p>
+                <a asp-controller="Inspections" asp-action="Index" class="btn btn-primary">View Inspections</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Follow-ups</h5>
+                <p class="card-text">Track open and closed follow-ups.</p>
+                <a asp-controller="FollowUps" asp-action="Index" class="btn btn-primary">View Follow-ups</a>
+            </div>
+        </div>
+    </div>
+</div>

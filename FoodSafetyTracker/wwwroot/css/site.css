@@ -1,5 +1,32 @@
+/* ===== Food Safety Tracker – Theme ===== */
+:root {
+  --fst-primary: #0d5c4e;
+  --fst-primary-dark: #094236;
+  --fst-primary-light: #148f7d;
+  --fst-accent: #d4a84b;
+  --fst-accent-hover: #c4993a;
+  --fst-bg: #f5f5f0;
+  --fst-card-bg: #ffffff;
+  --fst-text: #2c2c2c;
+  --fst-text-muted: #5a5a5a;
+  --fst-border: #e0ddd8;
+  --fst-nav-bg: #0d5c4e;
+  --fst-nav-text: #ffffff;
+  --fst-nav-hover: rgba(255, 255, 255, 0.9);
+  --fst-footer-bg: #1a1a1a;
+  --fst-footer-text: #b0b0b0;
+  --fst-danger: #c23d3d;
+  --fst-success: #2d8a5e;
+  --fst-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --fst-shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --fst-radius: 8px;
+  --fst-radius-sm: 6px;
+}
+
 html {
   font-size: 14px;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -8,24 +35,273 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+  margin-bottom: 0;
+  background-color: var(--fst-bg);
+  color: var(--fst-text);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* ----- Navbar ----- */
+.navbar.fst-nav {
+  background: var(--fst-nav-bg) !important;
+  box-shadow: var(--fst-shadow);
+  padding: 0.5rem 0;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.navbar.fst-nav .navbar-brand {
+  color: var(--fst-nav-text) !important;
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+.navbar.fst-nav .nav-link {
+  color: var(--fst-nav-text) !important;
+  font-weight: 500;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: var(--fst-radius-sm);
+  transition: background 0.2s, color 0.2s;
+}
+
+.navbar.fst-nav .nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--fst-nav-hover) !important;
+}
+
+.navbar.fst-nav .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.4);
+  color: var(--fst-nav-text);
+}
+
+.navbar.fst-nav .navbar-toggler-icon {
+  filter: brightness(0) invert(1);
+}
+
+.navbar.fst-nav .btn-link.nav-link {
+  color: var(--fst-nav-text) !important;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.navbar.fst-nav .btn-link.nav-link:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--fst-nav-hover) !important;
+}
+
+/* ----- Main content ----- */
+main {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+  min-height: calc(100vh - 180px);
+}
+
+main h1 {
+  color: var(--fst-primary-dark);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+}
+
+/* ----- Cards (all cards in main get theme) ----- */
+main .card,
+.card.fst-card {
+  background: var(--fst-card-bg);
+  border: 1px solid var(--fst-border);
+  border-radius: var(--fst-radius);
+  box-shadow: var(--fst-shadow);
+  transition: box-shadow 0.2s;
+}
+
+main .card:hover,
+.card.fst-card:hover {
+  box-shadow: var(--fst-shadow-lg);
+}
+
+main .card .card-title,
+.card.fst-card .card-title {
+  color: var(--fst-primary-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+main .card .card-text.display-6,
+.card.fst-card .card-text.display-6 {
+  color: var(--fst-primary);
+  font-weight: 700;
+}
+
+/* ----- Tables ----- */
+.table {
+  background: var(--fst-card-bg);
+  border-radius: var(--fst-radius);
+  overflow: hidden;
+  box-shadow: var(--fst-shadow);
+}
+
+.table thead th {
+  background: var(--fst-primary);
+  color: var(--fst-nav-text);
+  font-weight: 600;
+  border: none;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+}
+
+.table tbody tr {
+  transition: background 0.15s;
+}
+
+.table tbody tr:hover {
+  background: rgba(13, 92, 78, 0.04);
+}
+
+.table tbody td {
+  padding: 0.75rem 1rem;
+  border-color: var(--fst-border);
+  vertical-align: middle;
+}
+
+/* ----- Buttons ----- */
+.btn-primary {
+  background: var(--fst-primary);
+  border-color: var(--fst-primary);
+  color: #fff;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: var(--fst-radius-sm);
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background: var(--fst-primary-dark);
+  border-color: var(--fst-primary-dark);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background: #fff;
+  border: 1px solid var(--fst-border);
+  color: var(--fst-text);
+  font-weight: 500;
+  border-radius: var(--fst-radius-sm);
+}
+
+.btn-secondary:hover {
+  background: var(--fst-bg);
+  border-color: var(--fst-primary-light);
+  color: var(--fst-primary-dark);
+}
+
+.btn-danger {
+  background: var(--fst-danger);
+  border-color: var(--fst-danger);
+  font-weight: 600;
+  border-radius: var(--fst-radius-sm);
+}
+
+.btn-danger:hover {
+  background: #a83232;
+  border-color: #a83232;
+  color: #fff;
+}
+
+.btn-link.nav-link:focus,
+.btn:focus,
+.btn:active:focus,
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.2rem rgba(13, 92, 78, 0.25);
+}
+
+/* ----- Forms ----- */
+.form-control,
+.form-select {
+  border-radius: var(--fst-radius-sm);
+  border-color: var(--fst-border);
+  padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--fst-primary-light);
+}
+
+.form-label {
+  font-weight: 600;
+  color: var(--fst-text);
+  margin-bottom: 0.35rem;
+}
+
+.form-floating > .form-control-plaintext::placeholder,
+.form-floating > .form-control::placeholder {
+  color: var(--fst-text-muted);
+}
+
+/* ----- Links ----- */
+a {
+  color: var(--fst-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--fst-primary-dark);
+}
+
+/* ----- Footer ----- */
+.footer.fst-footer {
+  background: var(--fst-footer-bg);
+  color: var(--fst-footer-text);
+  padding: 1rem 0;
+  margin-top: auto;
+  border-top: none;
+}
+
+.footer.fst-footer a {
+  color: var(--fst-accent);
+}
+
+.footer.fst-footer a:hover {
+  color: var(--fst-accent-hover);
+}
+
+/* ----- Utility ----- */
+.text-muted {
+  color: var(--fst-text-muted) !important;
+}
+
+.border-top {
+  border-color: var(--fst-border) !important;
+}
+
+/* ----- Login / Auth ----- */
+.form-floating > .form-control {
+  border-radius: var(--fst-radius-sm);
+}
+
+/* ----- Error page ----- */
+.text-danger {
+  color: var(--fst-danger) !important;
+}
+
+/* ----- Dashboard filter form ----- */
+form.g-3 .form-select {
+  min-width: 140px;
+}
+
+/* ----- Dl (details) ----- */
+dl.row dt {
+  color: var(--fst-text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+dl.row dd {
+  color: var(--fst-text);
 }

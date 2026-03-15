@@ -4,11 +4,11 @@
 }
 
 <h1 class="text-danger">Something went wrong</h1>
-<p class="lead">We're sorry. An error occurred while processing your request. Our team has been notified.</p>
+<p class="lead">An error occurred while processing your request. Please try again or contact support.</p>
 
 @if (Model.ShowRequestId)
 {
     <p class="text-muted small">Request ID: <code>@Model.RequestId</code></p>
 }
 
-<p><a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Home</a></p>
+<p><a asp-controller="Home" asp-action="Index" class="btn btn-primary">Return to Dashboard</a></p>

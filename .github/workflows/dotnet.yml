@@ -1,0 +1,27 @@
+name: .NET CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: Restore
+        run: dotnet restore FoodSafetyTracker.sln
+
+      - name: Build
+        run: dotnet build FoodSafetyTracker.sln --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test FoodSafetyTracker.sln --configuration Release --no-build --verbosity normal

@@ -4,14 +4,16 @@ public class DbInitializerHostedService : IHostedService
 {
     private readonly IServiceProvider _serviceProvider;
 
-    public DbInitializerHostedService(IServiceProvider serviceProvider)
-    {
-        _serviceProvider = serviceProvider;
-    }
+    public DbInitializerHostedService(IServiceProvider serviceProvider) => _serviceProvider = serviceProvider;
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    public Task StartAsync(CancellationToken cancellationToken)
     {
-        await DbInitializer.InitializeAsync(_serviceProvider);
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(800, cancellationToken);
+            try { await DbInitializer.InitializeAsync(_serviceProvider); } catch { }
+        }, cancellationToken);
+        return Task.CompletedTask;
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

@@ -2,16 +2,11 @@
 @{
     ViewData["Title"] = "Premises";
 }
-
 <h1>Premises</h1>
-
-@if (User.IsInRole(FoodSafetyTracker.Data.DbInitializer.RoleAdmin))
+@if (User.IsInRole("Admin"))
 {
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
+    <p><a asp-action="Create">Create New</a></p>
 }
-
 <table class="table">
     <thead>
         <tr>
@@ -32,7 +27,7 @@
                 <td>@item.RiskRating</td>
                 <td>
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a>
-                    @if (User.IsInRole(FoodSafetyTracker.Data.DbInitializer.RoleAdmin))
+                    @if (User.IsInRole("Admin"))
                     {
                         <text> | </text>
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>

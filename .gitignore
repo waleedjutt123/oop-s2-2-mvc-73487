@@ -1,41 +1,30 @@
-## Ignore build outputs and user-specific files
-
-# Build results
+## Build & IDE
 bin/
 obj/
-
-# Visual Studio / VS Code
 .vs/
 .vscode/
-
-# Rider / JetBrains
 .idea/
-
-# User-specific files
 *.user
 *.userosscache
 *.suo
 *.userprefs
 
-# Logs
+## Logs
 logs/
 *.log
 
-# NuGet
+## NuGet
 packages/
 *.nupkg
 
-# Generated files
-Generated_*/
-
-# SQLite / local DB files
+## SQLite
 *.db
 *.db-shm
 *.db-wal
 
-# IIS Express
-.vs/
-
-# Publish output
+## Publish
 publish/
 
+## OS
+Thumbs.db
+.DS_Store

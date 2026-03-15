@@ -2,14 +2,12 @@
 @{
     ViewData["Title"] = "Edit Inspection";
 }
-
 <h1>Edit Inspection</h1>
-
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="mb-2">
-        <label asp-for="PremisesId" class="form-label">Premises</label>
+        <label class="form-label">Premises</label>
         <select asp-for="PremisesId" class="form-control" asp-items="ViewBag.PremisesId"></select>
     </div>
     <div class="mb-2">
@@ -33,5 +31,4 @@
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
-
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }

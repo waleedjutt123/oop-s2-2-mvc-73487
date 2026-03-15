@@ -2,9 +2,7 @@
 @{
     ViewData["Title"] = "Edit Premises";
 }
-
 <h1>Edit Premises</h1>
-
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -30,5 +28,4 @@
     <button type="submit" class="btn btn-primary">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>
-
 @section Scripts { <partial name="_ValidationScriptsPartial" /> }
